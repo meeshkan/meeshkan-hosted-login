@@ -1,0 +1,44 @@
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width">
+  <title>Meeshkan profile</title>
+  <script src="/login/client.js"></script>
+  <script>
+  meeshkan.onUser = (user) => {
+    var displayName = user.displayName;
+    var email = user.email;
+    var emailVerified = user.emailVerified;
+    var photoURL = user.photoURL;
+    var uid = user.uid;
+    var phoneNumber = user.phoneNumber;
+    var providerData = user.providerData;
+    document.getElementById('sign-out').style.display = 'block';
+    document.getElementById('sign-in').style.display = 'none';
+    document.getElementById('account-details').textContent = JSON.stringify({
+        displayName: displayName,
+        email: email,
+        emailVerified: emailVerified,
+        phoneNumber: phoneNumber,
+        photoURL: photoURL,
+        uid: uid,
+        accessToken: user.accessToken,
+        providerData: providerData
+    }, null, '  ');
+
+    fetch('/login/verify?token=' + encodeURIComponent(user.accessToken))
+      .then((response) => {
+        return response.json();
+      })
+      .then((myJson) => {
+        console.log(myJson);
+      });
+  };
+  </script>
+</head>
+<body>
+  <h1>Meeshkan Service</h1>
+  <div id="sign-out"><a href="javascript:meeshkan.signout()">Sign out</a></div>
+  <div id="sign-in"><a href="/login?redirect=login/debug">Sign in</a></div>
+  <pre id="account-details"></pre>
+</body>
+</html>

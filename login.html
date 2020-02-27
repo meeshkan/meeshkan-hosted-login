@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width">
+  <title>Login to Meeshkan</title>
+  <!-- https://github.com/firebase/firebaseui-web -->
+  <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.4.0/firebase-ui-auth.css" />
+  <script src="https://www.gstatic.com/firebasejs/7.9.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.9.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/ui/4.4.0/firebase-ui-auth.js"></script>
+  <script>
+  firebase.initializeApp({
+    apiKey: "AIzaSyBm8fh3xwQ3PMtNHvtAEaBSchSDaf9Im6U",
+    authDomain: "auth.meeshkan.io",
+    databaseURL: "https://sound-electron-268214.firebaseio.com",
+    projectId: "sound-electron-268214",
+    storageBucket: "sound-electron-268214.appspot.com",
+    messagingSenderId: "294417890851",
+    appId: "1:294417890851:web:cc08162524c8ffb3317b96"
+  });
+
+  var urlParams = new URLSearchParams(window.location.search);
+  var redirectTo;
+  if (urlParams.has('redirect')) {
+    redirectTo = urlParams.get('redirect');
+  } else {
+    redirectTo = '';
+  }
+
+
+  var ui = new firebaseui.auth.AuthUI(firebase.auth());
+  var uiConfig = {
+    signInSuccessUrl: '/' + redirectTo,
+    signInOptions: [
+      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+      firebase.auth.GithubAuthProvider.PROVIDER_ID,
+      firebase.auth.TwitterAuthProvider.PROVIDER_ID
+    ],
+    tosUrl: 'http://meeshkan.com/terms/',
+    privacyPolicyUrl: 'http://meeshkan.com/privacy/'
+  };
+  ui.start('#firebaseui-auth-container', uiConfig);
+  </script>
+</head>
+<body>
+  <h1 style="text-align: center; font-family: Roboto,arial,sans-serif">Login to Meeshkan</h1>
+  <div id="firebaseui-auth-container"></div>
+</body>
+</html>
