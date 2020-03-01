@@ -1,11 +1,16 @@
 <html lang="en">
 <head>
   <meta name="viewport" content="width=device-width">
-  <title>Meeshkan profile</title>
+  <title>Login debugging</title>
   <script src="/login/client.js"></script>
   <script>
 
   meeshkan.onUser = (user) => {
+    if (!user) {
+      document.getElementById('sign-out').style.display = 'none';
+      document.getElementById('sign-in').style.display = 'block';
+      return;
+    }
     var displayName = user.displayName;
     var email = user.email;
     var emailVerified = user.emailVerified;
@@ -38,9 +43,9 @@
   </script>
 </head>
 <body>
-  <h1>Meeshkan Service</h1>
-  <div id="sign-out"><a href="javascript:meeshkan.signout()">Sign out</a></div>
-  <div id="sign-in"><a href="/login?redirect=login/debug">Sign in</a></div>
+  <h1>Login debugging</h1>
+  <div id="sign-out"><a href="javascript:meeshkan.signOut()">Sign out</a></div>
+  <div id="sign-in"><a href="javascript:meeshkan.signIn()">Sign in</a></div>
   <pre id="account-details"></pre>
 </body>
 </html>
