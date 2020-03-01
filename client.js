@@ -16,10 +16,12 @@ window.meeshkan = {};
   ]);
 
   meeshkan.signOut = () => {
+    meeshkan.signingOut = true;
     firebase.auth().signOut().then(() => {
       window.location.reload();
-    }, function(error) {
+    }, (error) => {
       console.error('Sign Out Error', error);
+      window.location.reload();
     });
   };
 
@@ -36,6 +38,7 @@ window.meeshkan = {};
     });
 
     firebase.auth().onAuthStateChanged((user) => {
+      if (meeshkan.signingOut) return;
       if (user) {
         firebase.auth().currentUser.getIdToken(true).then((accessToken) => {
           user.accessToken = accessToken;
