@@ -1,2 +1,3 @@
 Flask==1.1.1
 flask-talisman
+meeshkan-hosted-authenticate==0.5

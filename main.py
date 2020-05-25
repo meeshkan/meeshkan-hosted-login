@@ -1,5 +1,6 @@
-from flask import Flask
+from flask import Flask, request
 from flask_talisman import Talisman
+from meeshkan_hosted_authenticate import verify_token
 
 app = Flask(__name__)
 
@@ -33,6 +34,13 @@ def debug():
 @app.route("/login/client.js")
 def client_js():
     return CLIENT_JS, 200, {"content-type": "text/javascript"}
+
+
+@app.route("/login/verify")
+def verify():
+    access_token = request.args.get("access_token")
+    verified_user = verify_token(access_token)
+    return verified_user
 
 
 @app.route("/_ah/warmup")

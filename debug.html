@@ -31,7 +31,7 @@
         providerData: providerData
     }, null, '  ');
 
-    fetch('/login/verify?token=' + encodeURIComponent(user.accessToken))
+    fetch('/login/verify?access_token=' + encodeURIComponent(user.accessToken))
       .then((response) => {
         return response.json();
       })
